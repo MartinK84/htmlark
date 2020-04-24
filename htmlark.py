@@ -192,10 +192,11 @@ def convert_page(page_path: str, parser: str='auto',
             if 'stylesheet' in css['rel']:
                 tags.append(css)
     if not ignore_js:
-        scripttags = soup('script')
-        for script in scripttags:
+        scripttags = soup('script')                
+        for script in scripttags:            
             if 'src' in script.attrs:
-                tags.append(script)
+                if not 'mathjax' in script['src']:
+                    tags.append(script)
 
     # Convert the linked resources
     for tag in tags:
